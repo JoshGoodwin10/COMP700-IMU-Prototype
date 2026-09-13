@@ -15,7 +15,6 @@ imu-lab/
 ├── esp32_firmware/
 │   └── esp32_imu.ino  — Arduino sketch for the ESP32
 ├── server.js          — Tiny local dev server (Node.js)
-└── README.md          — This file
 ```
 
 ---
