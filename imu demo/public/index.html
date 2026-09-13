@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IMU Biomechanics Lab</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+
+    <!-- Top bar -->
+    <header class="topbar">
+      <div class="logo"><span class="logo-accent">IMU</span> Biomechanics Lab</div>
+      <div class="conn-status">
+        <div class="dot" id="conn-dot"></div>
+        <span class="badge" id="conn-badge">Disconnected</span>
+      </div>
+      <button class="btn btn-outline" id="conn-btn">Connect ESP32</button>
+      <div class="spacer"></div>
+      <span class="sample-count" id="sample-count">0 samples</span>
+      <button class="btn btn-outline" id="export-btn">↓ Export CSV</button>
+      <button class="btn btn-record" id="rec-btn">
+        <div class="rec-dot"></div>
+        <span>Record</span>
+      </button>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+      <section>
+        <div class="section-label">Body placement</div>
+        <div class="assign-grid" id="assign-grid"></div>
+      </section>
+
+      <section>
+        <div class="section-label">Live orientation</div>
+        <div class="data-panel">
+          <div class="data-row"><span class="data-label">Roll</span> <span class="data-val" id="d-roll">—</span></div>
+          <div class="data-row"><span class="data-label">Pitch</span><span class="data-val" id="d-pitch">—</span></div>
+          <div class="data-row"><span class="data-label">Yaw</span>  <span class="data-val" id="d-yaw">—</span></div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-label">Acceleration</div>
+        <div class="data-panel">
+          <div class="data-row"><span class="data-label">Ax</span>  <span class="data-val" id="d-ax">—</span></div>
+          <div class="data-row"><span class="data-label">Ay</span>  <span class="data-val" id="d-ay">—</span></div>
+          <div class="data-row"><span class="data-label">Az</span>  <span class="data-val" id="d-az">—</span></div>
+          <div class="data-row"><span class="data-label">|A|</span> <span class="data-val" id="d-amag">—</span></div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-label">Session stats</div>
+        <div class="stats-row">
+          <div class="stat-card"><div class="stat-label">Duration</div><div class="stat-val" id="s-dur">0s</div></div>
+          <div class="stat-card"><div class="stat-label">Peak |A|</div><div class="stat-val" id="s-peak">0</div></div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-label">Connection</div>
+        <div class="data-panel info-panel" id="info-panel">
+          Connect your ESP32 via USB.<br>
+          Click "Connect ESP32" and select<br>
+          the correct COM / tty port.<br><br>
+          No device? The dashboard runs<br>
+          in simulation mode automatically.
+        </div>
+      </section>
+
+    </aside>
+
+    <!-- Main content -->
+    <main class="main">
+      <div class="viz-area">
+
+        <!-- 3D IMU visualizer -->
+        <div class="panel canvas-panel" id="cube-panel">
+          <div class="panel-label" id="cube-label">IMU — unassigned</div>
+          <canvas id="three-canvas"></canvas>
+        </div>
+
+        <!-- Body skeleton -->
+        <div class="panel skeleton-panel">
+          <div class="panel-label">Body skeleton</div>
+          <canvas id="skel-canvas" width="240" height="340"></canvas>
+        </div>
+
+      </div>
+
+      <!-- Timeline chart -->
+      <div class="panel chart-panel">
+        <div class="panel-label">Roll / Pitch / Yaw — last 200 samples</div>
+        <canvas id="line-canvas"></canvas>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Three.js from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
